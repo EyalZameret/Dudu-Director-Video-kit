@@ -43,7 +43,7 @@ def main(cfg_path):
             z0, z1 = s.get("zoom", [1.0, 1.0])
             frames = int(dur * 30)
             args += ["-loop", "1", "-framerate", "30", "-t", str(dur), "-i", s["image"]]  # default 25 fps made stills short
-            chain = (f"[{n}:v]scale=3840:-2,zoompan=z='{z0}+{z1 - z0}*on/{frames}'"
+            chain = (f"[{n}:v]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160,zoompan=z='{z0}+{z1 - z0}*on/{frames}'"
                      f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=30,"
                      f"trim=duration={dur},setpts=PTS-STARTPTS,setsar=1,{grade}")
         if n == len(shots) - 1 and cfg.get("fade_out"):

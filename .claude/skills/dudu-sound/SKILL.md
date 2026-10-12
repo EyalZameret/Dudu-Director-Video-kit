@@ -23,7 +23,7 @@ Voice: inner voices are dry and close (no room echo); the skeptic is calm and sl
 
 ## 2. Make the sounds
 Ask the owner which sources are allowed (accounts, budget). Options:
-- **Music:** Gemini music generation (in the subscription; drive it with `dudu-browser`); or a royalty-free library. Generate **two beds** (tension, warm), not one per clip.
+- **Music:** Gemini music generation (in the subscription; drive it with `dudu-browser`); or, without Gemini, a royalty-free library or another music generator the owner has an account for. Generate **two beds** (tension, warm), not one per clip.
 - **SFX:** a free library with a clear license (credit when required), or a generator. Keep a `project/sound/LICENSES.md` with the source and license of every file.
 - **Voice:** the owner's or a friend's recording (most authentic, free); or TTS (e.g. ElevenLabs, which supports Hebrew, English and many other languages; needs the owner's account). Never clone a real person's voice without their written consent.
 - Do not use Kling's Native Audio for the film: separate per-clip audio does not join into one track and costs more.

@@ -1,11 +1,11 @@
 ---
 name: dudu-browser
-description: Used by Dudu (AI promo video director) to drive Gemini (Nano Banana images, Veo video) and Kling (image-to-video) in a Playwright browser the owner logged into. Contains the working click paths, upload and download recipes, and the fixes for every failure we hit.
+description: Used by Dudu (AI promo video director) to drive Gemini (Nano Banana images, Veo video), ChatGPT (GPT Image) and Kling (image-to-video) in a Playwright browser the owner logged into. Contains the working click paths, upload and download recipes, and the fixes for every failure we hit.
 ---
 
-# Dudu: driving Gemini and Kling with Playwright
+# Dudu: driving Gemini, ChatGPT and Kling with Playwright
 
-Uses the Playwright MCP server from `.mcp.json`. Selectors below were verified 2026-10 on the Hebrew Gemini UI and the English Kling UI. The Gemini labels are written as regexes that accept both Hebrew and English; the English wording was not verified, so on the first run in another UI language take a `browser_snapshot`, check the real button names and fix the regexes here. Web UIs change: when a selector fails, take a snapshot (`browser_snapshot` or `browser_find`), find the new one, and update this file.
+Uses the Playwright MCP server from `.mcp.json`. Selectors below were verified 2026-10 on the Hebrew Gemini UI and the English Kling UI. The ChatGPT recipe (section 1b) is **not verified yet**. The Gemini labels are written as regexes that accept both Hebrew and English; the English wording was not verified, so on the first run in another UI language take a `browser_snapshot`, check the real button names and fix the regexes here. Web UIs change: when a selector fails, take a snapshot (`browser_snapshot` or `browser_find`), find the new one, and update this file.
 
 ## 0. Ground rules
 - The owner logs in. Open the site, tell the owner "log in in the Playwright window and tell me when you're done", and wait. Never type credentials.
@@ -57,6 +57,33 @@ Typical time: 20-40 s per image.
 Pitfalls:
 - `browser_run_code_unsafe` cannot run while a file chooser is open. Split into A / B / C as above.
 - Earlier chats keep context: a fresh chat avoids "it returned the same image".
+
+## 1b. ChatGPT: images (GPT Image), for owners without Gemini
+**Status: unverified.** This recipe was written from the general structure of chatgpt.com, not from a recorded run. On the first run: take a `browser_snapshot` at every step, use the real selectors, and replace the guesses below with what worked (and the date). Until then, go step by step with separate small `browser_*` calls rather than one long script.
+
+Before starting, tell the owner once: OpenAI's terms restrict extracting output by automated means; keep volumes human-scale, or use the OpenAI Images API with their own key instead.
+
+Flow (same order as Gemini: new chat, refs, prompt, wait, download):
+1. `browser_navigate` to `https://chatgpt.com/` (a fresh chat each time avoids "it returned the same image"). The owner logs in.
+2. **Refs:** look for a hidden `input[type=file]` and use `setInputFiles` with the absolute paths (1-4 files). If there is none, click the attach button (a "+" or paperclip; check the snapshot) and use `browser_file_upload` on the chooser. Wait until every thumbnail has finished uploading.
+3. **Prompt:** the composer is usually a contenteditable box (often `#prompt-textarea`). Start the prompt with `Create an image:` so it does not answer in text, or pick the image tool from the "+" menu if the snapshot shows one. Then the usual prompt (refs, shot line, STYLE, negatives).
+4. **Aspect:** ChatGPT offers square, portrait and landscape 3:2 (1536x1024), not 16:9. Ask for `landscape 3:2` and add `keep all important content inside the central 16:9 band`. `tools/build_cut.py` crops to 16:9 in the edit.
+5. **Wait:** usually 30-120 s. Wait until a new `img` appears in the last answer (its alt text is often "Generated image") and the progress indicator is gone.
+6. **Download:** prefer the image's own download button (hover the image; check the snapshot). Otherwise read the `src` of the new `img` and save it with the browser's cookies:
+   ```js
+   async (page) => {
+     const src = await page.locator('img[alt*="Generated"]').last().getAttribute('src');
+     const res = await page.request.get(src);
+     require('fs').writeFileSync(OUT_PATH, await res.body()); return res.status();
+   }
+   ```
+   If `require` is not available in `browser_run_code_unsafe`, use the download button or `browser_take_screenshot` of the image element as a last resort (lower quality; say so to the owner).
+7. **Edits** (remove a logo, fix the eyes): stay in the same chat and write `Edit only ...: ... Change nothing else.` ChatGPT may also offer a "select area" editor; either works.
+
+What we saw with GPT Image (2026-10, character sheets):
+- It captured **character and expression** best (age, tension, wild hair), with very consistent panels.
+- Lower resolution and smoother, "too clean" light than Nano Banana; in one close-up the eyes looked in different directions. Add `natural skin texture, visible pores, unretouched, sharp focus, both eyes looking at the camera` and check the eyes in every face.
+- Plan quota: image generation on chat plans has limits that change. If it says to wait, stop and tell the owner instead of retrying.
 
 ## 2. Gemini: video (Veo)
 Same as images, but pick `יצירת סרטון` (English UI: "Create video") and attach the keyframe. Download with the `הורדת הסרטון` button (English UI: "Download video"). Several minutes per clip, 720p, about 8-10 s.

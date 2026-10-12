@@ -8,7 +8,7 @@
 
 - writes the brief and a 12-shot script,
 - builds consistent characters, locations and a camera-and-acting storyboard,
-- generates the keyframes in **Gemini (Nano Banana)** and animates them in **Kling**, driving the browser itself through Playwright,
+- generates the keyframes in **Gemini (Nano Banana)** or **ChatGPT (GPT Image)** and animates them in **Kling**, driving the browser itself through Playwright,
 - measures every clip, cuts it to the action and assembles the film with **ffmpeg**,
 - designs the sound and mixes music, effects and voices onto the cut.
 
@@ -43,7 +43,7 @@ flowchart LR
     S1["1 · Brief"] --> S2["2 · Script<br/>12 shots"]
     S2 --> S3["3 · Style bible<br/>shot list<br/>storyboard"]
     S3 --> S4["4 · Character and<br/>location sheets"]
-    S4 --> S5["5 · 12 keyframes<br/>Gemini"]
+    S4 --> S5["5 · 12 keyframes<br/>Gemini or ChatGPT"]
     S5 --> S6["6 · Animation<br/>Kling"]
     S6 --> S7["7 · Rough cut<br/>ffmpeg"]
     S7 --> S8["8 · Sound<br/>and mix"]
@@ -60,7 +60,7 @@ Stage 9, **review**, runs at every gate: Dudu checks the script's claims against
 |---|---|---|
 | 1-2 Brief and script | Interviews you (6 short questions, each with a recommended answer), offers 3-5 hooks, writes the script | Choose, change, approve |
 | 3 Storyboard | Camera, acting and sound direction for every shot, rendered as an HTML board | Approve the board |
-| 4-5 Images | Writes the prompts, drives Gemini in the browser, uploads references, downloads and inspects every image, fixes problems with targeted edits | Log in to Gemini once |
+| 4-5 Images | Writes the prompts, drives Gemini or ChatGPT in the browser, uploads references, downloads and inspects every image, fixes problems with targeted edits | Log in to Gemini or ChatGPT once |
 | 6 Animation | Runs a one-shot model test first, states the credit cost, then animates all shots in Kling | Log in to Kling, approve the spend |
 | 7 Edit | Measures where each clip really moves, cuts each shot to its action, color-grades, assembles | Watch and comment |
 | 8 Sound | Writes a cue sheet synced to the cuts, helps you source music, effects and voice, mixes and normalizes | Record or approve voices |
@@ -114,7 +114,7 @@ Plan about 15 minutes. You need:
 | [Node.js](https://nodejs.org) 18 or newer | Runs the Playwright browser server (`npx @playwright/mcp`) | `node -v` |
 | [Python](https://www.python.org/downloads/) 3.10 or newer | Runs the video tools | `python --version` (Windows) / `python3 --version` (macOS, Linux) |
 | [Git](https://git-scm.com/downloads) | Clones this repository | `git --version` |
-| A Google account with Gemini image generation, and a [Kling](https://kling.ai) account with credits | Images and animation. Needed from stage 4, so you can start without them | |
+| For images: Gemini (a Google account with image generation) **or** ChatGPT. For animation: a [Kling](https://kling.ai) account with credits | Needed from stage 4, so you can start without them | |
 
 ffmpeg is **not** a separate install: the `imageio-ffmpeg` package ships a portable copy.
 
@@ -174,7 +174,7 @@ Next time you only need: `cd Dudu-Director-Video-kit`, activate the environment,
    /dudu
    ```
    Dudu checks which stage the project is at and continues from there. You can stop at any time and resume in a new session.
-3. Answer at each gate. When Dudu opens Gemini or Kling, log in **in the browser window Playwright opened**, then tell Dudu you're done.
+3. Answer at each gate. Before the images, Dudu asks whether you use Gemini or ChatGPT. When it opens one of them, or Kling, log in **in the browser window Playwright opened**, then tell Dudu you're done.
 4. Your film and every intermediate file are in `project/`. That folder is ignored by Git, so your product details, images and videos stay on your machine.
 
 To leave Dudu mode, type `exit Dudu` (or the same in your language) or run any other slash command. You can also start a session directly as Dudu with `claude --agent dudu-director`.
@@ -187,7 +187,7 @@ Paste a link to a video (YouTube and most video sites) and write "learn from thi
 
 1. Downloads the video for private analysis, and deletes it at the end.
 2. Detects every cut, measures shot lengths and saves one frame per shot.
-3. Measures the sound: loudness over time, silences, a waveform and a spectrogram aligned to the cuts. If you agree, it also asks Gemini, which can listen to YouTube videos, and cross-checks the two sources.
+3. Measures the sound: loudness over time, silences, a waveform and a spectrogram aligned to the cuts. If you have Gemini and agree, it also asks Gemini, which can listen to YouTube videos, and cross-checks the two sources.
 4. Analyzes five crafts: directing, camera, acting, storyboard and sound.
 5. Writes `analysis.md` and a full `storyboard.json` to `library/study/<video-id>/`, and adds a row to `library/INDEX.md`.
 
@@ -225,7 +225,7 @@ Here only seconds 2 to 3.5 carry action, so that is the part that goes into the 
 ## What it cost us
 From the first production, October 2026. Prices change, so check them in each app.
 
-- **Gemini:** about 40 image generations and edits for the whole film, within a subscription.
+- **Gemini:** about 40 image generations and edits for the whole film, within a subscription. With ChatGPT, plan a similar number of images; chat plans have image limits that change, so Dudu stops and tells you if you hit one.
 - **Kling 3.0:** 1080p, 5-second clips, Native Audio off: 40 credits per clip. 12 shots plus one model test and two retakes came to about 600 credits.
 - **ffmpeg and the tools:** free.
 
@@ -241,7 +241,7 @@ Dudu states the price before every paid generation and checks it on the Generate
 | Brief | A short interview: one pain, a hero, a skeptic, a proof moment, one CTA | Decide up front whether the film shows only what the product does today, or the vision, and record the decision |
 | Script | 12 shots, about 70% problem and 30% solution, no narrator | Inner voices ("I hope this works...") need no lip sync and work in any language. The 70/30 split is an industry habit, not a research result |
 | Style bible | One fixed English description per character and for the product, pasted word for word into every prompt | Consistency comes from repeating the exact same description, not from the model's memory |
-| Character sheets | Four panels per character: front, three-quarter, profile, close-up | Nationality words do little; describe face, skin, hair, build and clothes. When the model keeps returning the same picture, start a new chat |
+| Character sheets | Four panels per character: front, three-quarter, profile, close-up. GPT Image caught the character and expression best, Nano Banana the photoreal skin and resolution, so we combined them | Nationality words do little; describe face, skin, hair, build and clothes. When the model keeps returning the same picture, start a new chat |
 | Locations | Two invented offices were rejected; a real photo of the kind of place we wanted worked at once | A real photo as reference beats any description. Logos that sneak in are removed with a targeted edit |
 | Browser automation | The owner logged in; Claude chose the tool, uploaded references, sent the prompt and downloaded | Order matters in Gemini: choose image creation first, then send the prompt, or it answers in text and hangs |
 | Keyframes | 20-40 seconds per image; Claude checked each one and fixed three | Check the physical truth your audience knows (ports, hands, devices) and look for extras who resemble a main character |
@@ -261,7 +261,8 @@ Dudu states the price before every paid generation and checks it on the Generate
 | `pip install` fails with "externally-managed-environment" | Use the virtual environment from step 3 instead of installing system-wide |
 | `ModuleNotFoundError: imageio_ffmpeg` while Dudu works | Claude Code was started from a terminal where the environment wasn't active. Exit, activate it, start `claude` again |
 | Gemini answers in text instead of making an image | Start a new chat and choose image creation before sending the prompt. Dudu does this, but web UIs change |
-| A Gemini or Kling button can't be found | The site changed. Dudu takes a snapshot, finds the new button and updates `.claude/skills/dudu-browser/SKILL.md`. The Gemini steps were verified on the Hebrew interface; the English labels are written in but may need this fix once |
+| A Gemini, ChatGPT or Kling button can't be found | The site changed. Dudu takes a snapshot, finds the new button and updates `.claude/skills/dudu-browser/SKILL.md`. The Gemini steps were verified on the Hebrew interface; the English labels are written in but may need this fix once. The ChatGPT recipe is new and not verified yet, so expect Dudu to map it on the first run |
+| ChatGPT images aren't 16:9 | ChatGPT makes landscape 3:2. Dudu keeps the action in the central 16:9 band and the edit crops it |
 | `study_video.py` fails with HTTP 403 | Update yt-dlp (`pip install -U yt-dlp`) and make sure Node.js is on your PATH; it is needed to pass YouTube's checks |
 | Blue blotches in dark areas of the film | Usually the media player. Try another player before re-rendering |
 
@@ -270,7 +271,7 @@ Dudu states the price before every paid generation and checks it on the Generate
 ## Responsible use
 
 - **Passwords:** you log in yourself. Dudu never types passwords, codes or card numbers.
-- **Terms of service:** automating consumer web interfaces may conflict with a site's terms. Keep volumes at a human scale, or use the official APIs.
+- **Terms of service:** automating consumer web interfaces may conflict with a site's terms (OpenAI's terms, for example, restrict extracting output by automated means). Keep volumes at a human scale, or use the official APIs.
 - **Reference videos:** downloads are for private analysis only and are deleted right away. Downloading may conflict with a site's terms. Never reuse other people's footage, music or likenesses; study only the technique.
 - **Truth in advertising:** no numbers without a source, no "fixes everything", no real people and no third-party brands in generated images. If you choose to show a planned capability, Dudu records that decision in your brief.
 - **Voices:** never clone a real person's voice without their written consent.
@@ -284,7 +285,7 @@ Dudu states the price before every paid generation and checks it on the Generate
 .claude/skills/dudu/              /dudu switches the session into Dudu mode
 .claude/skills/dudu-script/       Brief and script
 .claude/skills/dudu-visuals/      Style bible, characters, locations, storyboard, keyframes
-.claude/skills/dudu-browser/      Playwright recipes for Gemini and Kling
+.claude/skills/dudu-browser/      Playwright recipes for Gemini, ChatGPT and Kling
 .claude/skills/dudu-motion/       Model choice, motion prompts, clip review
 .claude/skills/dudu-edit/         Motion measurement, cutting, grading, assembly
 .claude/skills/dudu-sound/        Sound design, sourcing and mix

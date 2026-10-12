@@ -1,6 +1,6 @@
 ---
 name: dudu-visuals
-description: Used by Dudu (AI promo video director) for stages 3-5. Builds the style and character bible, the 12-shot list, reference sheets, location frames and the 12 keyframe prompts for Gemini / Nano Banana, and reviews every generated image.
+description: Used by Dudu (AI promo video director) for stages 3-5. Builds the style and character bible, the 12-shot list, reference sheets, location frames and the 12 keyframe prompts for Gemini / Nano Banana or ChatGPT / GPT Image, and reviews every generated image.
 ---
 
 # Dudu: style bible, references and keyframes
@@ -24,6 +24,8 @@ Same schema as the studied references (`tools/storyboard.py`), one entry per sho
 Before the keyframes exist, panels show "no frame yet". After stage 5, set `frame` to the keyframe file and re-render: `python tools/storyboard.py project/storyboard.json`. Show the owner a screenshot of the board at the gate.
 
 ## Stage 4: references first (they decide everything)
+The same prompts work in Gemini (Nano Banana) and ChatGPT (GPT Image); use the model recorded in the brief. In our test GPT Image caught character and expression best, and Nano Banana gave the most photoreal skin and the highest resolution. With both available, lock the character in GPT Image, then attach it in Nano Banana and ask to "recreate this exact sheet as a high-resolution photoreal photograph". With ChatGPT only, ask for landscape 3:2 and keep the action inside the central 16:9 band.
+
 1. **Character sheets:** 4 panels on grey (front, 3/4, profile, face close-up), one per character.
 2. **Product sheet:** 4 angles of the product, then targeted edits for each state (e.g. a status light off / on, a box closed / open) on the same image.
 3. **Locations:** if the owner has a real photo of the kind of place they want, use it as the reference ("generate a new image of a very similar place, change the angle"). That beat every invented location. Generate the other locations with the first location attached so they look like one building.

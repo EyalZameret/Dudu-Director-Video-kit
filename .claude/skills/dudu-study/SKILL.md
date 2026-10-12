@@ -32,7 +32,7 @@ Read **every** `shots-N.png` and `shots.json`. Study five crafts:
 Claude cannot hear, so use two sources and cross-check them:
 1. **Measurements:** Read `audio.json` (loudness per 0.5 s and per shot, silences), `waveform.png` and `spectrogram.png` (red lines = cuts, white ticks = 10 s). Loud dense bands = action music or effects; a dark top band = highs filtered ("underwater"); clear horizontal lines = tones or voice; gaps = silence.
 2. **Gemini's ears** (optional, ask the owner): Gemini can watch a YouTube link with audio. With `dudu-browser`, open a new Gemini chat (plain chat, no tool) and ask, in English, for a section-by-section sound breakdown with timestamps (music, sfx, silence, dialogue, hits on cuts) and an acting breakdown, telling it to say "not sure" when unsure.
-Keep what both sources agree on. Mark anything only Gemini reported (exact dialogue lines especially) as "per Gemini, unverified".
+If the owner has no Gemini, rely on the measurements alone and say so in `analysis.md`. Keep what both sources agree on. Mark anything only Gemini reported (exact dialogue lines especially) as "per Gemini, unverified".
 
 ## 4. Write `storyboard.json` and `analysis.md` (same folder)
 - `storyboard.json`: every shot with `size, angle, lens, light, move, action, acting, sound, why`, grouped into `sequences`. Schema in `tools/storyboard.py`. Render with `python tools/storyboard.py library/study/<id>/storyboard.json`, and screenshot it to check.
