@@ -1,0 +1,22 @@
+{
+  "output": "project/out/roughcut-v1.mp4",
+  "grades": {
+    "cold": "eq=saturation=0.88,colorbalance=rm=-0.02:bm=0.025:rh=-0.02:bh=0.02",
+    "warm": "eq=saturation=1.05,colorbalance=rm=0.025:bm=-0.02:rh=0.02:bh=-0.015"
+  },
+  "fade_out": 1.0,
+  "shots": [
+    {"clip": "project/clips/shot01.mp4", "from": 0,   "to": 3,   "grade": "cold"},
+    {"clip": "project/clips/shot02.mp4", "from": 1,   "to": 3.5, "grade": "cold"},
+    {"clip": "project/clips/shot03.mp4", "from": 0.3, "to": 1.8, "grade": "cold"},
+    {"clip": "project/clips/shot04.mp4", "from": 0.5, "to": 3,   "grade": "cold"},
+    {"clip": "project/clips/shot05.mp4", "from": 2,   "to": 5,   "grade": "cold"},
+    {"clip": "project/clips/shot06.mp4", "from": 2.5, "to": 5,   "grade": "cold"},
+    {"image": "project/frames/KF07.jpg", "duration": 2, "zoom": [1.0, 1.08], "grade": "cold"},
+    {"clip": "project/clips/shot08.mp4", "from": 1.5, "to": 4.5, "grade": "cold"},
+    {"clip": "project/clips/shot09.mp4", "from": 2,   "to": 5,   "grade": "warm"},
+    {"clip": "project/clips/shot10.mp4", "from": 1.5, "to": 3.5, "grade": "warm"},
+    {"clip": "project/clips/shot11.mp4", "from": 1.8, "to": 4.3, "grade": "warm"},
+    {"clip": "project/clips/shot12.mp4", "from": 0,   "to": 4,   "grade": "warm"}
+  ]
+}

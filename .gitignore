@@ -1,0 +1,28 @@
+# Your project's work: product facts, images and video stay on your machine
+project/*
+!project/product.example.md
+!project/cut.example.json
+!project/README.md
+
+# Reference study: keep the analysis, not the frames or the video
+library/study/*/shots-*.png
+library/study/*/frames/
+library/study/*/waveform.png
+library/study/*/spectrogram.png
+library/study/*/storyboard.html
+library/study/*/video.*
+library/study/*/transcript.txt
+
+# Rendered example board (regenerate with tools/storyboard.py)
+examples/storyboard.html
+
+# Playwright MCP screenshots, snapshots and downloads
+.playwright-mcp/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+*.mp4
+*.webm

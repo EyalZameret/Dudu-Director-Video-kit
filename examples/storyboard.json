@@ -1,0 +1,36 @@
+{
+  "title": "InvoiceBuddy · \"The last evening of the month\": storyboard v1 (example)",
+  "subtitle": "A fictional product (project/product.example.md) · 12 shots · ~30 s after the cut · 16:9 · stage 3 board, before any keyframe exists. Render: python tools/storyboard.py examples/storyboard.json",
+  "frames_dir": "frames",
+  "sequences": [
+    {
+      "name": "1 · Hook and problem (0:00-0:11) · cold grade",
+      "from": 1,
+      "to": 4
+    },
+    {
+      "name": "2 · Agitate and turn (0:11-0:21) · the pace tightens, then the riser cuts dead",
+      "from": 5,
+      "to": 8
+    },
+    {
+      "name": "3 · Solution, relief and CTA (0:21-0:31) · warm grade",
+      "from": 9,
+      "to": 12
+    }
+  ],
+  "shots": [
+    {"n": 1, "time": "0:00.0", "length": 3.0, "size": "ECU", "angle": "frontal", "lens": "tele", "light": "laptop glow in a dark kitchen", "move": "static", "action": "Her eyes, reflected spreadsheet light flickering across them", "acting": "tired, blinking slowly", "sound": "fridge hum, one loud keyboard clack on the first frame", "why": "Hook: a concrete pain in the first second, no product, no logo"},
+    {"n": 2, "time": "0:03.0", "length": 2.5, "size": "WS", "angle": "eye level", "lens": "wide", "light": "single pendant lamp", "move": "slow push-in", "action": "A small-business owner alone at the kitchen table, piles of paper, a cold cup of tea", "acting": "shoulders up, leaning into the screen", "sound": "room tone, a low drone begins", "why": "Establish the world and the loneliness of the task"},
+    {"n": 3, "time": "0:05.5", "length": 2.5, "size": "insert", "angle": "over the shoulder", "lens": "normal", "light": "screen", "move": "static", "action": "Her finger hits copy, paste, copy, paste (screen content added in the edit)", "sound": "keyboard clicks in rhythm with the cut", "why": "Insert shots buy rhythm without new acting"},
+    {"n": 4, "time": "0:08.0", "length": 3.0, "size": "MCU", "angle": "slightly high", "lens": "tele", "light": "screen", "move": "static", "action": "Her phone lights up face-down on the table; she turns it over", "acting": "a flinch, then dread", "sound": "phone buzz", "why": "The event lands on the hero"},
+    {"n": 5, "time": "0:11.0", "length": 2.0, "size": "MCU", "angle": "eye level", "lens": "tele", "light": "warm office, daytime", "move": "static", "action": "A client in a shop, phone to his ear, waiting", "acting": "calm, slow, unimpressed: the skeptic moves slower than everyone", "sound": "ringback tone", "why": "Face / event alternation; stillness = power (library/study/V5AFQaEbHQU)"},
+    {"n": 6, "time": "0:13.0", "length": 1.5, "size": "CU", "angle": "frontal", "lens": "tele", "light": "screen", "move": "handheld, subtle", "action": "She answers, forcing a smile", "acting": "polite voice, panicked eyes", "sound": "the pulse speeds up", "why": "Agitate: the cost becomes a person"},
+    {"n": 7, "time": "0:14.5", "length": 4.5, "size": "WS", "angle": "high, top-down", "lens": "wide", "light": "pendant lamp", "move": "slow pull-out", "action": "The table from above: papers everywhere, the clock on the wall past eleven", "sound": "ticking clock, drone at its peak", "why": "Show time with a clock in the scene, never claim a number"},
+    {"n": 8, "time": "0:19.0", "length": 2.0, "size": "MCU", "angle": "eye level", "lens": "tele", "light": "pendant lamp", "move": "static", "action": "She stops, breathes out, opens the app on her phone (UI added in the edit)", "acting": "the micro-pivot: exhaustion turns into decision", "sound": "the riser CUTS DEAD on the tap", "why": "The turn: lowest point, then the product appears"},
+    {"n": 9, "time": "0:21.0", "length": 1.0, "size": "insert", "angle": "over the shoulder", "lens": "normal", "light": "phone glow", "move": "static", "action": "Her thumb taps once", "sound": "one second of silence", "why": "Silence before the success moment"},
+    {"n": 10, "time": "0:22.0", "length": 2.5, "size": "MCU", "angle": "eye level", "lens": "tele", "light": "warm office", "move": "static", "action": "The client's phone buzzes; he glances at it and nods", "acting": "the skeptic's small approval", "sound": "a clean success chime", "why": "The result the viewer can see is a reaction, not a feature list"},
+    {"n": 11, "time": "0:24.5", "length": 2.5, "size": "MS", "angle": "eye level", "lens": "normal", "light": "warm, the room looks softer", "move": "slow push-in", "action": "She closes the laptop, picks up the tea, leans back", "acting": "relief in the shoulders, a small smile", "sound": "warm music bed", "why": "Relief needs breathing room"},
+    {"n": 12, "time": "0:27.0", "length": 4.0, "size": "CU product", "angle": "table level", "lens": "normal", "light": "warm", "move": "static", "action": "The phone on the table, screen dark; logo and CTA composited on the empty side", "sound": "VO: \"InvoiceBuddy. Your invoices, sent.\" then a final note", "why": "Hold the end card 3-4 s; one CTA"}
+  ]
+}
